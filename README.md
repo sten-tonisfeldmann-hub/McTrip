@@ -31,9 +31,3 @@ Keep your eyes on the road and grab these snacks to maximize your points:
 | 🥤 **Drink** | `15 Points` | Maximum hydration to keep your focus sharp. |
 
 ---
-
-### Installation & Running
-
-1. Install the release zip file
-2. Exctract the folder
-3. Run the Game.py file
