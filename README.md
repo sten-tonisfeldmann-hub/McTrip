@@ -32,14 +32,8 @@ Keep your eyes on the road and grab these snacks to maximize your points:
 
 ---
 
-## 🚀 Getting Started
-
-### Prerequisites
-
-Before running the game, make sure you have the necessary runtime installed (e.g., Python, Node.js, or a modern web browser, depending on your build).
-
 ### Installation & Running
 
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/your-username/McTrip.git](https://github.com/your-username/McTrip.git)
+1. Install the release zip file
+2. Exctract the folder
+3. Run the Game.py file
