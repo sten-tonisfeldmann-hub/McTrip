@@ -1,0 +1,2 @@
+# McTrip
+The McTrip Game
