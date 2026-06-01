@@ -1,33 +1,32 @@
 # 🍟 McTrip
 
-**McTrip** is a fast-paced arcade game where your only mission is to survive the chaotic highway and satisfy your late-night cravings. Dodge incoming traffic, collect iconic snacks, and make it to the golden arches to claim your prize!
+**McTrip** on tempokas arkaadmäng, kus sinu ainus ülesanne on ellu jääda kaootilisel maanteel ja rahuldada oma hilisõhtuseid isusid. Väldi lähenevat liiklust, kogu ikoonilisi suupisteid ja jõua kuldsete kaarteni, et oma auhind kätte saada!
+---
+
+## 🎮 Mängu omadused
+
+* **Raskusastme valija:** Vali liikluse intensiivsus enne teele asumist.
+* **Refleksipõhine juhtimine:** Liigu läbi saabuvate autode, mis jäävad sinu ja sinu toidu vahele.
+* **Lõpupreemia:** Ela teekond edukalt üle, et käivitada eksklusiivne ja kohandatud võiduvideo.
 
 ---
 
-## 🎮 Gameplay Features
+## 🕹️ Kuidas mängida
 
-* **Difficulty Selector:** Choose your level of traffic intensity before hitting the road.
-* **Reflex-Based Driving:** Navigate through incoming cars that stand between you and your meal.
-* **The Ultimate Reward:** Successfully survive the trip to trigger an exclusive, custom victory cutscene.
+1. **Käivita mäng:** Vali peamenüüst oma eelistatud raskusaste.
+2. **Vajuta nuppu „Esita“:** Käivita mootor ja valmistu kaoseks.
+3. **Sõida ja jää ellu:** Väldi teel olles kokkupõrkeid vastutulevate autodega.
+4. **Kogu suupisteid:** Haara teelt esemeid, et oma rekordit parandada.
+5. **Võida:** Jõuda turvaliselt McDonald'si, et vaadata kohandatud lõpu vahevideot!
 
----
+### 🍔 Powerupi punktisüsteem
 
-## 🕹️ How to Play
+Hoia pilk teel ja haara need suupisted, et oma punkte maksimeerida:
 
-1. **Launch the Game:** Select your preferred difficulty setting on the main menu.
-2. **Hit Play:** Start your engine and prepare for chaos.
-3. **Drive & Survive:** Avoid colliding with incoming cars while steering along the road.
-4. **Collect Snacks:** Grab items along the way to boost your high score.
-5. **Win:** Reach McDonald's safely to watch the custom ending cutscene!
-
-### 🍔 Powerup Scoring System
-
-Keep your eyes on the road and grab these snacks to maximize your points:
-
-| Powerup | Points | Description |
+| Powerup | Punktid | Kirjeldus |
 | :---: | :---: | :--- |
-| 🍟 **Fries** | `5 Points` | A quick, salty snack to keep you moving. |
-| 🍔 **Burger** | `10 Points` | Substantial fuel for the long drive. |
-| 🥤 **Drink** | `15 Points` | Maximum hydration to keep your focus sharp. |
+| 🍟 **Frikad** | `5 punkti` | Kiire ja soolane suupiste, mis hoiab sind liikumas. |
+| 🍔 **Burger** | `10 punkti` | Hea kütus pikaks sõiduks. |
+| 🥤 **Jook** | `15 punkti` | Maksimaalne vedelikutarbimine terava keskendumisvõime säilitamiseks. |
 
 ---
