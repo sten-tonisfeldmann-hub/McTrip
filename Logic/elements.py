@@ -1,4 +1,7 @@
 import pygame
+
+# --- SEE FAIL SISALDAB KÕIKI MÄNGU PEAMISI ELEMENTE, NAGU AUTO, SKOOR, AEG, JA NII EDASI ---
+# TIMERI JOONISTAMINE JA UUENDAMINE
 class Timer:
     def __init__(self):
         self.algusaeg = pygame.time.get_ticks()
@@ -16,6 +19,7 @@ class Timer:
         self.algusaeg = pygame.time.get_ticks()
         self.sekundid = 0
 
+# --- SKOORI HOIDMINE, UUENDAMINE JA JOONISTAMINE ---
 class Score:
     def __init__(self):
         self.points = 0
@@ -37,11 +41,12 @@ class Score:
     def reset(self):
         self.points = 0
 
+# --- AUTO KLASS, MIS SISALDAB KÕIKI AUTOGA SEOTUD ASJU, NAGU LIIGUTAMINE JA JOONISTAMINE ---
 class Car:
     def __init__(self, x, y):
         self.rect = pygame.Rect(x, y, 50, 90)
         self.kiirus = 7
-        self.PUNANE = (191, 12, 12)
+        self.auto_varv = (204, 0, 0)
         self.MUST = (30, 30, 30)
         self.KLAAS = (173, 216, 230)
 
@@ -52,8 +57,8 @@ class Car:
         if klahvid[pygame.K_RIGHT] and self.rect.right < 640:
             self.rect.x += self.kiirus
 
-    def joonista(self, aken, varv=(191, 12, 12)):
-        pygame.draw.rect(aken, varv, self.rect, border_radius=8)
+    def joonista(self, aken, varv=(153, 255, 255)):
+        pygame.draw.rect(aken, self.auto_varv, self.rect, border_radius=8)
         pygame.draw.rect(aken, (30, 30, 30), self.rect, 2, border_radius=8)
         ratta_laius, ratta_korgus = 10, 18
         rattad = [

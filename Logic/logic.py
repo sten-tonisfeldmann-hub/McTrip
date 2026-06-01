@@ -6,30 +6,34 @@ from .elements import Car, Score, Timer
 class McTrip:
     def __init__(self):
         pygame.init()
-        # Algatame helisüsteemi
+        # Heli
         pygame.mixer.init()
 
+
+        # Ekraani seaded
         self.LAAIUS, self.KORGUS = 640, 960
         self.aken = pygame.display.set_mode((self.LAAIUS, self.KORGUS))
         pygame.display.set_caption("McTrip")
         self.kell = pygame.time.Clock()
 
         
-
+        # Värvid, Self.varvid on vastaste värvid
         self.VALGE = (255, 255, 255)
         self.MUST = (0, 0, 0)
         self.HALL = (80, 80, 80)
-        self.VARVID = [(0, 0, 255), (0, 200, 0), (255, 165, 0), (128, 0, 128), (0, 255, 255)]
+        self.VARVID = [(0, 0, 255), (0, 200, 0), (255, 165, 0), (128, 0, 128), (0, 255, 255), (255, 102, 178)]
 
         self.mang_kaib = False
         self.mang_labi = False
         self.dialoog_kaib = False 
         
+        #
         self.nupp_rect = pygame.Rect(230, 440, 180, 80)
         self.reset_nupp_rect = pygame.Rect(200, 500, 240, 80)
         
         self.triibu_vahe = 150
         self.triibud = [[315, i * self.triibu_vahe] for i in range(10)]
+        # Auto algpositsioon
         self.auto = Car(300, 800)
         
         self.skoor = Score()
@@ -39,7 +43,7 @@ class McTrip:
         self.teksti_timer = 180
         self.taimer = Timer()
 
-        # DIALOOGI ANDMED (Uuendatud)
+        # Algus dialoogi tekstid
         self.dialoogi_tekstid = [
             "Kurat, kõht on nii tühi...",
             "Ma tahaks bigmac einet...",
@@ -50,15 +54,15 @@ class McTrip:
         self.praegune_lause = 0
         self.dialoog_font = pygame.font.SysFont("Calibri", 26, bold=True)
         
-        # --- UUED MUUTUJAD TRÜKKIMISE EFEKTI JAOKS ---
+        # Tekstiga seotud muutujad
         self.trykitud_tekst = ""            # Tekst, mis on hetkel ekraanil
-        self.taislause = ""                 # Kogu lause, mis peab ilmuma
-        self.tahe_indeks = 0                # Mitu tähte on trükitud
+        self.taislause = ""
+        self.tahe_indeks = 0
         self.trykkimise_kiirus = 2          # Mitu frame'i oodata enne uut tähte
         self.trykkimise_counter = 0         # Taimer tähtede jaoks
-        self.tekst_ilmub = False           # Kas trükkimine käib hetkel?
+        self.tekst_ilmub = False
         self.meheke_offset_y = 0            # Meheke liigutamiseks y-teljel
-        self.meheke_liigub_yles = False    # Kas meheke on "hüppe" faasis
+        self.meheke_liigub_yles = False
         
         # PILTIDE LAADIMINE
         try:
@@ -93,7 +97,6 @@ class McTrip:
             self.meheke_pilt = pygame.image.load("Pictures/Meheke_uus.png").convert_alpha()
             self.meheke_pilt = pygame.transform.scale(self.meheke_pilt, (140, 160)) 
             
-            # --- UUS PILLT: Suu lahti ---
             self.meheke_suu_lahti = pygame.image.load("Pictures/Raakimine.png").convert_alpha()
             self.meheke_suu_lahti = pygame.transform.scale(self.meheke_suu_lahti, (140, 160))
             
@@ -111,27 +114,24 @@ class McTrip:
         except:
             self.raakimissound = None
 
-        # === UUS: TAUSTAMUUSIKA LISAMINE ===
+        # TAUSTAMUUSIKA LISAMINE
         try:
-            # Asenda "taustamuusika.mp3" oma faili nimega
             pygame.mixer.music.load("Sound/track.wav") 
             
             # Määrame helitugevuse (0.0 kuni 1.0)
             pygame.mixer.music.set_volume(0.5) 
             
-            # Paneme muusika mängima. Lõpmatu korduse jaoks määrame loops=-1
             pygame.mixer.music.play(loops=-1) 
         except pygame.error as e:
             print(f"Muusika laadimine ebaõnnestus: {e}")
 
-        # === UUS: SÖÖKIDE JA AVARII HELID ===
+        # SÖÖKIDE JA AVARII HELID
         try:
             self.heli_friikad = pygame.mixer.Sound("Sound/YUM!.mp3")
             self.heli_burger = pygame.mixer.Sound("Sound/YUM!.mp3")
             self.heli_mcsoft = pygame.mixer.Sound("Sound/YUM!.mp3")
             self.heli_crash = pygame.mixer.Sound("Sound/DEATH.mp3")
             
-            # Keera crashi heli natuke kõvemaks, et oleks matsu kuulda
             self.heli_crash.set_volume(0.2)
             self.heli_mcsoft.set_volume(0.2)
             self.heli_burger.set_volume(0.2)
@@ -142,7 +142,7 @@ class McTrip:
             self.heli_mcsoft = None
             self.heli_crash = None
 
-        # --- LÕPU CUTSCENE'I ANDMED (LISA SIIA) ---
+        # --- LÕPU CUTSCENE
         self.cutscene_kaib = False
         self.cutscene_indeks = 0
         self.cutscene_tekstid = [
@@ -158,7 +158,7 @@ class McTrip:
         self.fade_pind.fill(self.MUST)
         self.fading_in = False
 
-        # Laadime pildid (ootab faile lopustseen1.png, lopustseen2.png jne)
+       # Laadime pildid
         self.cutscene_pildid = []
         for i in range(1, len(self.cutscene_tekstid) + 1):
             try:
@@ -174,9 +174,7 @@ class McTrip:
         self.valitud_raskus = None  # Alguses pole midagi valitud
         self.sihtskoor = 200
         
-        # --- RASKUSASTME NUPPUDE KESKKOHTA PANEMINE ---
-        # Kuna ekraani laius (self.LAAIUS) on 640, paneme nupu laiuseks 300.
-        # Valem: (640 - 300) // 2 = 170. Nupu X-koordinaat peab olema 170.
+        # Difficulty nuppud
         NUPU_LAIUS = 300
         NUPU_KORGUS = 60
         kesk_x = (self.LAAIUS - NUPU_LAIUS) // 2
@@ -185,13 +183,13 @@ class McTrip:
         self.nupp_medium = pygame.Rect(kesk_x, 560, NUPU_LAIUS, NUPU_KORGUS)
         self.nupp_hard = pygame.Rect(kesk_x, 640, NUPU_LAIUS, NUPU_KORGUS)
         
-        # --- PLAY NUPU KESKKOHTA PANEMINE ---
+        # --- Play nupp ---
         PLAY_LAIUS = 240
         PLAY_KORGUS = 75
         play_x = (self.LAAIUS - PLAY_LAIUS) // 2
         self.nupp_play = pygame.Rect(play_x, 750, PLAY_LAIUS, PLAY_KORGUS)
 
-    # --- UUS FUNKTSIOON: Teksti trükkimise algatamine ja mehe hüpe ---
+    # --- Teksti trükkimise algatamine ja mehe hüpe ---
     def algata_teksti_trykkimine(self):
         # Vaatame, kumba teksti parajasti trükkida on vaja
         if self.dialoog_kaib and self.praegune_lause < len(self.dialoogi_tekstid):
@@ -218,13 +216,15 @@ class McTrip:
         if self.raakimissound:
             self.raakimissound.play(loops=-1)
 
+    
+    # --- Mängu reset'i funktsioon, mida kasutatakse "Try Again" nupule vajutades ---
     def reset_mang(self):
         self.cutscene_kaib = False
         self.cutscene_indeks = 0
         self.mang_kaib = False
         self.mang_labi = False
         self.dialoog_kaib = False
-        self.valitud_raskus = None  # LISA SEE RIDA
+        self.valitud_raskus = None
         
         self.vastased = []
         self.toidud = []
@@ -240,8 +240,7 @@ class McTrip:
             pygame.mixer.music.play(loops=-1)
         
         
-        # EEMALDATUD: self.algata_teksti_trykkimine() rida pole siin enam vaja!
-
+    # --- JOONISTAMISE FUNKTSIOONID ---
     def joonista_auto_mudel(self, aken, rect, varv):
         pygame.draw.rect(aken, varv, rect, border_radius=8)
         pygame.draw.rect(aken, (30, 30, 30), rect, 2, border_radius=8)
@@ -254,6 +253,8 @@ class McTrip:
         pygame.draw.rect(aken, klaas, (rect.x + 8, rect.y + 20, 34, 15), border_radius=2)
         pygame.draw.rect(aken, klaas, (rect.x + 8, rect.bottom - 30, 34, 10), border_radius=2)
 
+
+    # --- VASTASTE TEKITAMINE JA TOIDU TEKITAMINE TÕENÄOSUSTEGA ---
     def tekita_vastane(self):
         if random.random() < 0.04:
             read = [25, 100, 200, 300, 400, 500, 560]
@@ -285,6 +286,8 @@ class McTrip:
             }
             self.toidud.append(uus_toit)
 
+
+    # --- TAUSTA JOONISTAMINE JA MUU ÜLDINE JOONISTAMINE ---
     def uuenda_tausta(self):
         for triip in self.triibud:
             triip[1] += 7 
@@ -292,12 +295,13 @@ class McTrip:
                 koige_ylem_y = min(t[1] for t in self.triibud)
                 triip[1] = koige_ylem_y - self.triibu_vahe
 
+    # --- PEAMINE JOONISTAMISE FUNKTSIOON, MIS KUTSUTAKSE IGA FRAME'I JOOKSVALT ---
     def joonista(self):
         self.aken.fill(self.HALL) 
         for triip in self.triibud:
             pygame.draw.rect(self.aken, self.VALGE, (triip[0], triip[1], 10, 40))
 
-        # --- JOONISTAME RASKUSASTME NUPUD ---
+        # ---  RASKUSASTME NUPUD ---
         if not self.mang_kaib and not self.mang_labi and not self.dialoog_kaib and not self.cutscene_kaib:
             if self.logo_pilt:
                 self.aken.blit(self.logo_pilt, self.logo_rect)
@@ -316,7 +320,7 @@ class McTrip:
                 
                 # Renderdame teksti ja paneme selle TÄPSELT nupu keskele
                 t_pind = font_nupp.render(tekst, True, (0, 0, 0))
-                t_rect = t_pind.get_rect(center=rect.center)  # <--- MAAGIA JUHTUB SIIN
+                t_rect = t_pind.get_rect(center=rect.center)
                 self.aken.blit(t_pind, t_rect)
 
             # --- JOONISTAME PLAY NUPU ---
@@ -324,12 +328,12 @@ class McTrip:
             pygame.draw.rect(self.aken, play_varv, self.nupp_play, border_radius=15)
             pygame.draw.rect(self.aken, (0, 0, 0), self.nupp_play, 5, border_radius=15)
             
-            # Paneme ka START GAME teksti täpselt nupu keskele
+            # START GAME nupp
             play_tekst = font_nupp.render("START GAME", True, (0, 0, 0))
             play_rect = play_tekst.get_rect(center=self.nupp_play.center) # <--- JA SIIN
             self.aken.blit(play_tekst, play_rect)
 
-
+        # 
         elif self.dialoog_kaib:
             self.auto.joonista(self.aken, (191, 12, 12))
             
@@ -419,7 +423,8 @@ class McTrip:
                 self.aken.blit(tekst_pind, (210, 200))
 
         pygame.display.flip()
-    
+
+    # --- PEAMINE MÄNGITSÜKKEL, MIS KUTSUTAKSE IGA FRAME'I JOOKSVALT ---
     def run(self):
         while True:
             for sündmus in pygame.event.get():
@@ -427,7 +432,7 @@ class McTrip:
                     pygame.quit()
                     sys.exit()
 
-                # 1. KLAHVIVAJUTUSED (Klaviatuuril pole ".pos" omadust!)
+                # 1. KLAHVIVAJUTUSED
                 if sündmus.type == pygame.KEYDOWN:
                     if sündmus.key == pygame.K_ESCAPE:
                         pygame.quit()
@@ -454,7 +459,7 @@ class McTrip:
                                 self.cutscene_indeks += 1
                                 self.algata_teksti_trykkimine()
 
-                # 2. HIIREVAJUTUSED (Siin on ".pos" olemas!)
+                # 2. HIIREVAJUTUSED
                 elif sündmus.type == pygame.MOUSEBUTTONDOWN:
                     # Menüü nupud
                     if not self.mang_kaib and not self.mang_labi and not self.dialoog_kaib and not self.cutscene_kaib:
@@ -479,7 +484,7 @@ class McTrip:
             
             self.uuenda_tausta()
 
-            # --- TEKSTI TRÜKKIMISE JA SUU LOGIKA (MÕLEMA OLEKU JAOKS) ---
+            # --- TEKSTI TRÜKKIMISE JA SUU LOGIKA ---
             if (self.dialoog_kaib or self.cutscene_kaib) and self.tekst_ilmub:
                 self.trykkimise_counter += 1
                 if self.trykkimise_counter >= self.trykkimise_kiirus:
