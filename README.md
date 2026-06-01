@@ -1,7 +1,7 @@
 # SEE MÄNG VAJAB PYGAME PAKETTI JA VSC PROGRAMMI
 
 **Kuidas mängida:**
-1. Ole kindel, et sul on olemas **VSC 3.14**
+1. Ole kindel, et sul on olemas **VSC 3.14** ja, et sul on **Python laiendus**
 2. **Installi Pygame.ce**, kasutades **VSC terminali**, ja lisa terinaili järgmine kood: `py -m pip install pygame-ce`
 3. **Installi kõige uuem version McTripist**
 4. Ekstrakti **McTripi fail**
