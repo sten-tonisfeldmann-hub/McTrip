@@ -1,3 +1,15 @@
+# SEE MÄNG VAJAB PYGAME PAKETTI JA VSC PROGRAMMI
+
+**Kuidas mängida:**
+1. Ole kindel, et sul on olemas **VSC 3.14**
+2. **Installi Pygame.ce**, kasutades **VSC terminali**, ja lisa terinaili järgmine kood: `py -m pip install pygame-ce`
+3. **Installi kõige uuem version McTripist**
+4. Ekstrakti **McTripi fail**
+5. Lisa **ekstrakteeritud fail VSC workspacei**
+6. Käivita **Game.py** programm
+
+
+
 # 🍟 McTrip
 
 **McTrip** on tempokas arkaadmäng, kus sinu ainus ülesanne on ellu jääda kaootilisel maanteel ja rahuldada oma hilisõhtuseid isusid. Väldi lähenevat liiklust, kogu ikoonilisi suupisteid ja jõua kuldsete kaarteni, et oma auhind kätte saada!
